@@ -1,0 +1,32 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style></style>
+</head>
+<body>
+    
+
+    <header>
+        <img src="{% static 'Icon.png' %}" alt="Логотип" style="height: 60px;">
+
+        { % if user.is_superuser or user.is_staff % }
+            <a href="{% url 'entity_add' %}">Добавить Товар</a>
+        { % endif % }
+        { % if user.authentificated }
+            <a href="{% url 'logout' %}">Выйти</a>
+        { % else % }
+            <a href="{% url 'login' %}">Войти</a>
+        { % endif % }
+    </header>
+    
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+    
+</body>
+</html>

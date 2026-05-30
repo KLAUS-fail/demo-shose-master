@@ -1,0 +1,36 @@
+{% extends "myapp/base.html" %}
+{% block content %}
+
+{% if user.is_staff or user.is_superuser %}
+    <form method="get">
+        <input type="text" name="q" value="{{ request.GET.q }}" placeholder="Поиск...">
+        <!-- <select name="sort" id="" value = "{{ required.GET.sort }}">
+            <option value="cena">Цена</option>
+        </select> -->
+        <button type="submit">Поиск</button>
+    </form>
+
+    <script>
+        document.querySelector("form").addEventListener("change", ()=> {
+            document.querySelector("form").submit()
+        });
+    </script>
+{% endif %}
+
+{% for item in items %}
+    <div class="{% if item.skidka > 15 %}sale{% endif %}">
+        <b>{{item.nazvanie}}</b>
+        <p>Цена: {{ item.cena_so_skidkoi|floatformat:2 }}</p>
+
+        {% if user.is_staff or user.is_superuser %}
+            <a href="{% url 'entity_edit' item.pk  %}">Изменить</a>
+            <a href="{% url 'entity_delete' item.pk  %}">Удалить</a>
+        {% endif %}
+    </div>
+{% endfor%}
+
+
+
+{% endblock %}
+
+

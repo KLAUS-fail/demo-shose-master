@@ -1,0 +1,23 @@
+
+
+{% extends "myapp/base.html" %}
+{% block content %}
+
+
+<h2>{% if obj %}Редактировать{%else%}Добавить {%endif%}</h2>
+
+
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    {{from.as_p}}
+    <button type="submit">Сохранить</button>
+    <button type="{% url 'entity_list' %}">Отменить</button>
+
+</form>
+
+
+
+{% endblock %}
+
+
